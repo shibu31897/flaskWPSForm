@@ -1,16 +1,22 @@
-# This is a sample Python script.
-
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+from flask import Flask, render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField
 
 
-# Press the green button in the gutter to run the script.
+class LoginForm(FlaskForm):
+    email = StringField('Email')
+    password = StringField('Password')
+app = Flask(__name__)
+app.secret_key = "4564534456456"
+
+@app.route("/")
+def home():
+    return render_template('index.html')
+
+@app.route("/login")
+def login():
+    login_form = LoginForm()
+    return render_template('login.html',form=login_form)
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app.run(debug=True)
